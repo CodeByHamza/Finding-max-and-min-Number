@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minimum and Maximum Numbers Finder</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+        
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        
+        button[type="submit"] {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        button[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        
+        .result {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Minimum and Maximum Numbers Finder</h1>
+        <form id="minMaxForm">
+            <label for="numbers">Enter numbers separated by commas:</label>
+            <input type="text" id="numbers" name="numbers" required><br>
+            <button type="submit">Find</button>
+        </form>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        document.getElementById("minMaxForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            var numbersString = document.getElementById("numbers").value;
+            var result = document.getElementById("result");
+
+            // Function to find the minimum and maximum numbers from a given series of numbers stored in an array
+            function findMinMax(numbers) {
+                if (numbers.length === 0) {
+                    return null;
+                }
+                let min = numbers[0];
+                let max = numbers[0];
+                for (let i = 1; i < numbers.length; i++) {
+                    if (numbers[i] < min) {
+                        min = numbers[i];
+                    }
+                    if (numbers[i] > max) {
+                        max = numbers[i];
+                    }
+                }
+                return {
+                    min: min,
+                    max: max
+                };
+            }
+
+            // Convert the input string to an array of numbers
+            var numbersArray = numbersString.split(",").map(Number);
+
+            // Find min and max
+            var minMax = findMinMax(numbersArray);
+
+            // Display result
+            if (minMax) {
+                result.innerHTML = "Minimum number: " + minMax.min + "<br>";
+                result.innerHTML += "Maximum number: " + minMax.max;
+            } else {
+                result.innerHTML = "No numbers entered.";
+            }
+        });
+    </script>
+</body>
+
+</html>
